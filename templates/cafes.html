@@ -20,7 +20,7 @@
      <thead>
         {% for data in cafes[0:] %}
         <tr>
-                {% for x in data: %}
+                {% for x in data %}
                     {% if "http" in x %}
                         <td scope="col"><a href="{{ x }}">Maps Link</a></td>
                     {% else %}
