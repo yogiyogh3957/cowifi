@@ -8,10 +8,10 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 Bootstrap(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///coffeeshopdata.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -102,12 +102,12 @@ def add_cafe():
 
         return redirect(url_for('cafes'))
 
-
     return render_template('add.html', form=form)
 
 
 @app.route('/cafes')
 def cafes():
+    #SHOWING CAFE DATA FROM CSV
     with open('cafe-data.csv', newline='') as csv_file:
         csv_data = csv.reader(csv_file, delimiter=',')
         list_of_rows = []
@@ -115,7 +115,11 @@ def cafes():
         http = "http"
         for row in csv_data:
             list_of_rows.append(row)
-    return render_template('cafes.html', cafes=list_of_rows, len=indexs, http_string=http)
+
+    all_cafe_data = db.session.query(Cafes).all()
+
+
+    return render_template('cafes.html', cafes=list_of_rows, len=indexs, http_string=http, all_cafe_data=all_cafe_data)
 
 
 if __name__=="__main__":
