@@ -20,13 +20,21 @@
      <thead>
         {% for data in all_cafe_data: %}
         <tr>
-                {% for x in data: %}
-                    {% if "http" in x %}
-                        <td scope="col"><a href="{{ x }}">Maps Link</a></td>
-                    {% else %}
-                        <td scope="col">{{ x }}</td>
-                    {% endif %}
-                {% endfor %}
+
+            <td scope="col">{{ data.coffeeshop }}</td>
+
+            <td scope="col"><a href="{{ data.coffeeshop }}">Maps Link</a></td>
+
+            <td scope="col">{{ data.open }}</td>
+
+            <td scope="col">{{ data.close }}</td>
+
+            <td scope="col">{{ data.coffee }}</td>
+
+            <td scope="col">{{ data.wifi }}</td>
+
+            <td scope="col">{{ data.power }}</td>
+
         </tr>
         {% endfor %}
      </thead>
