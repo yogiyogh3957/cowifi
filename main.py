@@ -27,7 +27,7 @@ class Cafes(db.Model):
 
     def __repr__(self):
         return f'<Cafe {self.coffeeshop}>'
-db.create_all()
+# db.create_all()
 
 def coffe_dropdown(choice):
     if choice == 1 :
