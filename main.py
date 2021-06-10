@@ -27,7 +27,7 @@ class Cafes(db.Model):
 
     def __repr__(self):
         return f'<Cafe {self.coffeeshop}>'
-# db.create_all()
+db.create_all()
 
 def coffe_dropdown(choice):
     if choice == 1 :
@@ -107,6 +107,7 @@ def add_cafe():
 
 @app.route('/cafes')
 def cafes():
+    all_cafe_data = db.session.query(Cafes).all()
     #SHOWING CAFE DATA FROM CSV
     with open('cafe-data.csv', newline='') as csv_file:
         csv_data = csv.reader(csv_file, delimiter=',')
@@ -115,8 +116,6 @@ def cafes():
         http = "http"
         for row in csv_data:
             list_of_rows.append(row)
-
-    all_cafe_data = db.session.query(Cafes).all()
 
 
     return render_template('cafes.html', cafes=list_of_rows, len=indexs, http_string=http, all_cafe_data=all_cafe_data)
